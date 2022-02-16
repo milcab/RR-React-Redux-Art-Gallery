@@ -26,12 +26,18 @@ export const setCustomObjectId = (customId) => ({
     payload: customId
 })
 
+// selectors
+export const getObjectId = state => state.data.objectId;
+export const getImageURL = state => state.data.apiData?.primaryImage;
+export const getApiData = state => state.data.apiData || {};
+
+// reducer
 const initialState = {
     objectId: 1,
     apiData: null,
 }
 
-export default (state = initialState, action) => {
+export default function dataSlice(state = initialState, action) {
     switch (action.type) {
         case "API_DATA":
             return {
@@ -51,7 +57,7 @@ export default (state = initialState, action) => {
         case "OBJECT_ID_CUSTOM":
             return {
                 ...state,
-                objectId: action.payload
+                objectId: parseInt(action.payload, 10)
             }
         case "RESET":
             return initialState

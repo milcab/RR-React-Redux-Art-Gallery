@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { setCustomObjectId } from '../features/dataSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCustomObjectId, getObjectId } from '../../features/dataSlice';
 
 export function CustomObjectIdField() {
     const dispatch = useDispatch()
+    const objectId = useSelector(getObjectId)
     const field = useRef(null)
 
     return (
@@ -11,6 +12,7 @@ export function CustomObjectIdField() {
             ref={field}
             type="number"
             min={1}
+            value={objectId}
             onChange={(event) => {
                 if (field.current) {
                     dispatch(setCustomObjectId(field.current.value))
